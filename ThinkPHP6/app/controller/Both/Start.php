@@ -22,9 +22,9 @@ class Start extends BaseController{
                     $User = new UserModel;
                     if($User -> register($data)){
                         Session::set('User_ID', $User -> getUserID($data));
-                        return json(['code' => 100, 'message' => 'Register and login successfully.', 'result'=>'success']);
+                        return json(['code' => 1010, 'message' => 'Register and login successfully.', 'result'=>'success']);
                     }else{
-                        return json(['code' => 102, 'message' => 'The user name already exists.', 'result'=>'error']);
+                        return json(['code' => 1006, 'message' => 'The user name already exists.', 'result'=>'error']);
                     }
                 } catch (ValidateException $e) {
                     return $e->getError();
@@ -46,9 +46,9 @@ class Start extends BaseController{
                     $User = new UserModel();
                     if($User -> login($data)){
                         Session::set('User_ID', $User -> getUserID($data));
-                        return json(['code' => 100, 'message' => 'Login successfully.', 'result'=>'success']);
+                        return json(['code' => 1010, 'message' => 'Login successfully.', 'result'=>'success']);
                     }else{
-                        return json(['code' => 103, 'message' => 'The account or password is incorrect.', 'result'=>'error']);
+                        return json(['code' => 1007, 'message' => 'The account or password is incorrect.', 'result'=>'error']);
                     }
                 } catch (ValidateException $e) {
                     return $e->getError();
