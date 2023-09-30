@@ -11,7 +11,8 @@ class User extends Model{
     protected $schema = [
         'id' => 'int',
         'username' => 'string',
-        'password' => 'string'
+        'password' => 'string',
+        'token' => 'string'
     ];
 
     public function register($data){
@@ -34,5 +35,18 @@ class User extends Model{
     public function getUserID($data){
         return User::where($data)->value('id');
     }
+
+    public function Verification($token){
+        if(User::where('token', $token)->first()->findorEmpty()->isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function updataVer($user_id, $token){
+        User::where('id', $user_id)->update(['token' => $token]);
+    }
+
 }
 ?>
