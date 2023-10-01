@@ -20,4 +20,6 @@ Route::post('Register', 'Both.Start/Register') -> allowCrossDomain();
 Route::post('Login', 'Both.Start/Login') -> allowCrossDomain();
 
 Route::get('Search', 'Employee.JobSearch/Search')->allowCrossDomain();
+
+Route::post('Resume', 'Employee.AddResume/Resume')->allowCrossDomain();
 ?>

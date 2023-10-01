@@ -6,7 +6,7 @@ use think\Model;
 class User extends Model{
     protected $connection = 'user';
     
-    protected $table = 'applicant';
+    protected $table = 'user';
 
     protected $schema = [
         'id' => 'int',
@@ -48,5 +48,8 @@ class User extends Model{
         User::where('id', $user_id)->update(['token' => $token]);
     }
 
+    public function findID($token){
+        return User::where('token', $token)->value('id');
+    }
 }
 ?>
