@@ -16,10 +16,10 @@ class JobSearch extends BaseController{
             if($Joblist == NULL){
                 return json(['code' => 101, 'message' => 'No results fit the requirements']);
             }else{
-                return json($Joblist);
+                return json(['code' => 102, 'joblist' => $Joblist]);
             }
         }else{
-            return json(['code' => 1000, 'message' => 'An error occurred. Please try again later.', 'result'=>'error']);
+            return json(['code' => 1000, 'message' => 'An error occurred. Please try again later.']);
         }    
     }
 }
