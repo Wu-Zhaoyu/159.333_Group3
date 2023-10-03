@@ -9,11 +9,12 @@ class Resume extends Model{
     protected $table = 'resume';
 
     protected $schema = [
-        'id' => 'int',
+        'ID' => 'int',
         'name' => 'string',
-        'E-mail' => 'string',
+        'email' => 'string',
         'phone' => 'string',
         'school' => 'string',
+        'academic' => 'string',
         'major' => 'string',
         'dataEdu' => 'string',
         'company' => 'string',
@@ -25,20 +26,18 @@ class Resume extends Model{
         'userid' => 'int'
     ];
 
-    public function AddResume($user_id, $Resume){
+    public function AddUserid($user_id){
         if(Resume::where('userid', $user_id)->findOrEmpty()->isEmpty()){
-            Resume::create($Resume);
-        }else{
-            Resume::where('userid', $user_id)->update($Resume);
+            Resume::create(['userid' => $user_id]);
         }
     }
 
+    public function AddResume($user_id, $Resume){
+        Resume::where('userid', $user_id)->update($Resume);
+    }
+
     public function UploadFile($user_id, $Filename){
-        if(Resume::where('userid', $user_id)->findOrEmpty()->isEmpty()){
-            Resume::create($Filename);
-        }else{
-            Resume::where('userid', $user_id)->update($Filename);
-        }
+        Resume::where('userid', $user_id)->update($Filename);
     }
 }
 ?>
