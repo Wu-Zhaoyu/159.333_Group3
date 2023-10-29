@@ -1,4 +1,4 @@
-1. registration function
+1.registration function
 Upon registration, users should follow the instructions displayed by the interface. This includes inputting their account number, password, and selecting their user type. Once submitted, the registration system will determine if the username has already been registered, and if the password meets the specified criteria. Successful registrations will be directed to the relevant main interface, while unsuccessful registrations will prompt an error message.
 
 2.login function
