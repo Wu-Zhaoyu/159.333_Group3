@@ -7,11 +7,12 @@
           {{ message.message_content}}
         </div>
       </div>
+      <!-- 输入框和发送按钮 -->
       <div class="input-box">
-        <!-- 输入框和发送按钮 -->
-        <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
+      <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message...">
         <button @click="sendMessage">Send</button>
       </div>
+      
     </div>
   </template>
   
@@ -113,6 +114,9 @@
   
   .input-box {
     display: flex;
+    position: absolute; /* 使输入框吸底 */
+    bottom: 20px; /* 吸底 */
+    margin-left: 15px;
   }
   
   input {
@@ -121,14 +125,29 @@
   }
 
 .sender-message {
-  text-align: right;
+  width: 70%;
+  height: auto;
+  font-size: 15px;
+  text-align: left;
+  padding: 7px;
   background-color: #e1ffc7; /* 设置发送者消息的背景颜色 */
-  margin-left: auto;
+  margin-left: 30%;
+  border-radius: 5px;
+  word-wrap: break-word;
+  margin-bottom: 5px;
 }
 
 .receiver-message {
+  width: 70%;
+  height: auto;
+  padding: 7px;
+  font-size: 15px;
   text-align: left;
+  margin-right: 30%;
+  border-radius: 5px;
   background-color: #d3d3d3; /* 设置接收者消息的背景颜色 */
+  word-wrap: break-word;
+  margin-bottom: 5px;
 }
   </style>
   

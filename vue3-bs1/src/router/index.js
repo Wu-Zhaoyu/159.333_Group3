@@ -10,6 +10,9 @@ import PostedAD from '@/views/JobPost/PostedAD.vue'
 import Apply from '@/views/JobPost/Apply.vue'
 import ApplicationStatus from '@/views/ApplicationStatus/index.vue'
 import ChatBox from '@/views/ChatBox/ChatBox.vue'; // 聊天框页面组件的路径
+import myProfiles from '@/views/Profile/myProfiles.vue'
+import selectProfile from '@/views/Profile/selectProfile.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +44,15 @@ const router = createRouter({
     
         component: () =>
           import(/* webpackChunkName: "jobDetail" */ "../views/JobSearch/JobDetail.vue"),
+      },
+
+      {
+        path: '/myProfiles',
+        component:myProfiles
+      },
+      {
+        path: '/selectProfile/:id',
+        component:selectProfile
       },
     ]
     },

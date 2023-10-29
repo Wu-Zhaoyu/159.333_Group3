@@ -10,13 +10,13 @@ const router = useRouter()
 // 获取全局状态
 const globalState = inject('globalState')
 const confirm = () => {
-  localStorage.removeItem('token'); // 假设你的令牌存储在localStorage中
+  sessionStorage.removeItem('token'); // 假设你的令牌存储在localStorage中
   globalState.value.user = null;
   globalState.value.role = null;
   // localStorage.clear();
   // 清除令牌，这可能涉及清除Cookies或本地存储中的令牌
-  localStorage.removeItem('globalState'); // 清除用户信息
-  localStorage.clear();
+  sessionStorage.removeItem('globalState'); // 清除用户信息
+  sessionStorage.clear();
   router.push({ path: '/' });
   // localStorage.removeItem('user'); // 清除用户角色
   // localStorage.removeItem('role'); // 清除用户角色
