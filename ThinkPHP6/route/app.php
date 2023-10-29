@@ -49,10 +49,6 @@ Route::post('AddMessage', 'Both.Chat/addMessage')->allowCrossDomain();//发消�
 
 Route::get('ShowMessage', 'Both.Chat/showMessage')->allowCrossDomain();//展示所有消息
 
-// Route::post('ChangeIfLook', 'Both.Chat/changeIfLook')->allowCrossDomain();//改变是否已读
-
-// Route::get('IfMessage', 'Both.Chat/ifMessage')->allowCrossDomain();//判断是否有新消息
-
 Route::get('ShowProfile', 'Employee.AddResume/showProfile')->allowCrossDomain();//生成PDF
 
 Route::get('DelProfile', 'Employee.AddResume/delProfile')->allowCrossDomain();//删除简历
