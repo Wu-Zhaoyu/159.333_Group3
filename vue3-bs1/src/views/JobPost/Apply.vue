@@ -1,31 +1,39 @@
 <template>
   <div class="wrapper1">
     <LayoutNav></LayoutNav>
+    <div  class="back">
+      <RouterLink class="entry" to="/">
+          <i class="iconfont icon-angle-left"></i>
+          <i class="iconfont icon-angle-left"></i>
+          Back to home page
+        </RouterLink>
+      </div>
+    
 
     <div class="content">
         <h1 class="table-header">Applications</h1>
         <ul class="content-list">
             <!-- Table Header -->
             <li class="content-item">
-                <div class="table-cell">Status</div>
-                <div class="table-cell">Candidates</div>
-                <div class="table-cell">Email</div>
-                <div class="table-cell">Phone</div>
-                <div class="table-cell">Actions</div>
+                <div class="table-cell1">Status</div>
+                <div class="table-cell1">Candidates</div>
+                <div class="table-cell1">Email</div>
+                <div class="table-cell1">Phone</div>
+                <div class="table-cell1">Actions</div>
       
             </li>
 
             <!-- List Items -->
             <li class="content-item" v-for="result in searchResults" :key="result.id">
-                <div class="table-cell">
-                  <div class="table-cell">{{ result.status['status'] }}</div>
+                <div class="table-cell1">
+                  <div class="table-cell1">{{ result.status['status'] }}</div>
                 </div>
-                <div class="table-cell">{{ result.resume['name'] }}</div>
-                <div class="table-cell">{{ result.resume['email'] }}</div>
-                <div class="table-cell">{{ result.resume['phone'] }}</div>
-                <div class="table-cell">
+                <div class="table-cell1">{{ result.resume['name'] }}</div>
+                <div class="table-cell1">{{ result.resume['email'] }}</div>
+                <div class="table-cell1">{{ result.resume['phone'] }}</div>
+                <div class="table-cell1">
                     <!-- Add actions buttons or links here -->
-                    <button @click="test(result)">Action</button>
+                    <button @click="test(result)">view</button>
                     <button @click="openChatModal(result)">Chat</button>
                     <button @click="updateStatus(result, 'Failed')">Failed</button>
                     <button @click="updateStatus(result, 'Approved')">Approved</button>
@@ -109,8 +117,8 @@ export default {
     },
     updateStatus(result, newStatus) {
       axios({
-        method: 'post', // 使用POST请求更新用户的status
-        url: 'http://localhost:81/ThinkPHP6/public/index.php/ChangeStatus', // 请替换为实际的API端点
+        method: 'post', 
+        url: 'http://localhost:81/ThinkPHP6/public/index.php/ChangeStatus', 
         headers: {
           'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
@@ -135,7 +143,7 @@ export default {
 
     },
     test(result) {
-      const generatedPDFURL = result.pdfURL;
+      const generatedPDFURL = result.pdfURL['pdfLink'];
       window.open(generatedPDFURL, '_blank');
     },
   },
@@ -147,7 +155,25 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.back{
+    margin-top: 15px;
+}
+.entry {
+    width: 120px;
+    margin-bottom: 38px;
+    font-size: 16px;
+    
+    margin-left: 40px;
+    margin-top: 40px;
+
+    i {
+      font-size: 14px;
+      color: $xtxColor;
+      letter-spacing: -5px;
+    }
+  }
+
 /* Style the table header */
 .table-header {
   text-align: center;
@@ -161,9 +187,9 @@ export default {
 }
 
 /* Style the table cells */
-.table-cell {
+.table-cell1 {
     display: inline-block;
-    width: 33%;
+    width: 20%;
     /* Equal width for each cell */
     text-align: center;
     font-weight: bold;

@@ -6,17 +6,18 @@ use think\Model;
 class User extends Model{
     protected $connection = 'user';
     
-    protected $table = 'user';
+    protected $table = 'applicant';
 
     protected $schema = [
         'id' => 'int',
         'username' => 'string',
         'password' => 'string',
+        'role' => 'string',
         'token' => 'string'
     ];
 
     public function register($data){
-        if(User::where('name', $data['username'])->findOrEmpty()->isEmpty()){
+        if(User::where('username', $data['username'])->findOrEmpty()->isEmpty()){
             User::create($data);
             return true;
         }else{
@@ -25,7 +26,7 @@ class User extends Model{
     }
 
     public function login($data){
-        if(User::where('name', $data['username'])->value('password') == $data['password']){
+        if(User::where('username', $data['username'])->value('password') == $data['password']){
             return true;
         }else{
             return false;
@@ -33,15 +34,24 @@ class User extends Model{
     }
 
     public function getUserID($data){
-        return User::where($data)->value('id');
+        return User::where('username', $data['username'])->value('id');
     }
 
     public function Verification($token){
-        if(User::where('token', $token)->first()->findorEmpty()->isEmpty()){
+        if($token == "NO_TOKEN"){
             return false;
-        }else{
-            return true;
+        } else {
+            $user = User::where('token', $token);
+            if($user === NULL){ // 如果未找到匹配的用户
+                return false;
+            }else {
+                return true;
+            }
         }
+    }
+
+    public function getRole($data){
+        return User::where('username', $data['username'])->value('role');
     }
 
     public function updataVer($user_id, $token){

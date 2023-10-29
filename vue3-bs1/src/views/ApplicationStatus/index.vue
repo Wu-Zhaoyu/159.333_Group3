@@ -2,25 +2,32 @@
     <LayoutNav></LayoutNav>
     <div class="wrapper1">
     <div class="content">
+      <div  class="back">
+      <RouterLink class="entry" to="/">
+          <i class="iconfont icon-angle-left"></i>
+          <i class="iconfont icon-angle-left"></i>
+          Back to home page
+        </RouterLink>
+      </div>
         <h1 class="table-header">My Recent Applications</h1>
         <ul class="content-list">
             <!-- Table Header -->
-            <li class="content-item">
-                <div class="table-cell">Status</div>
-                <div class="table-cell">Job Name</div>
-                <div class="table-cell">Company Name</div>
-                <div class="table-cell">Application Time</div>
-                <div class="table-cell">Actions</div>
+            <li class="content-item2">
+                <div class="table-cell1">Status</div>
+                <div class="table-cell1">Job Name</div>
+                <div class="table-cell1">Company Name</div>
+                <div class="table-cell1">Application Time</div>
+                <div class="table-cell1">Actions</div>
             </li>
 
             <!-- List Items -->
-            <li class="content-item" v-for="result in searchResults" :key="result.id">
-                <div class="table-cell">{{ result.status['status'] }}</div>
-                <div class="table-cell">{{ result.job['jobName'] }}</div>
-                <div class="table-cell">{{ result.company['company_name'] }}</div>
-                <div class="table-cell">{{ result.status['create_time'] }}</div>
+            <li class="content-item2" v-for="result in searchResults" :key="result.id">
+                <div class="table-cell1">{{ result.status['status'] }}</div>
+                <div class="table-cell1">{{ result.job['jobName'] }}</div>
+                <div class="table-cell1">{{ result.company['company_name'] }}</div>
+                <div class="table-cell1">{{ result.status['create_time'] }}</div>
 
-                <div class="table-cell">
+                <div class="table-cell1">
                     <!-- Add actions buttons or links here -->
                     <button @click="openChatModal(result)">Chat</button>
                     <div v-if="showChatModal" class="modal">
@@ -54,7 +61,8 @@ export default {
     };
   },
   created(){
-    const token = localStorage.getItem('token') || 'NO_TOKEN';
+    const token = sessionStorage.getItem('token') || 'NO_TOKEN';
+
     axios({
       method:'get',
       url: 'http://localhost:81/ThinkPHP6/public/index.php/EmpeeApply',
@@ -106,7 +114,25 @@ export default {
 
 </script>
 
-<style>
+<style scoped lang='scss'>
+.back{
+    margin-top: 15px;
+}
+.entry {
+    width: 120px;
+    margin-bottom: 38px;
+    font-size: 16px;
+    
+    margin-left: 40px;
+    margin-top: 40px;
+
+    i {
+      font-size: 14px;
+      color: $xtxColor;
+      letter-spacing: -5px;
+    }
+  }
+
 /* Style the table header */
 .table-header {
   text-align: center;
@@ -120,14 +146,14 @@ export default {
 }
 
 /* Style the table cells */
-.table-cell {
+.table-cell1 {
     display: inline-block;
     width: 20%;
     /* Equal width for each cell */
     text-align: center;
     font-weight: bold;
 }
-.content-item{
+.content-item2{
   font-size: 20px;
 }
 /* .modal-content {

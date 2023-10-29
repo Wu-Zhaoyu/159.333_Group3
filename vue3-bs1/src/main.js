@@ -31,16 +31,16 @@ const globalState = ref({
 
   window.addEventListener('unload', () => {
       console.log('unload event triggered')
-      localStorage.setItem('globalState', JSON.stringify(globalState.value))
+      sessionStorage.setItem('globalState', JSON.stringify(globalState.value))
     })
 
     // 在页面卸载之前保存全局状态
 window.addEventListener('beforeunload', () => {
-  localStorage.setItem('globalState', JSON.stringify(globalState.value))
+  sessionStorage.setItem('globalState', JSON.stringify(globalState.value))
 })
 
 // 在页面加载时还原全局状态
-const storedState = JSON.parse(localStorage.getItem('globalState'))
+const storedState = JSON.parse(sessionStorage.getItem('globalState'))
 // if (storedState) {
 //   globalState.value = storedState
 // }

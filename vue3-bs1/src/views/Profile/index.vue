@@ -11,8 +11,9 @@
       <!-- 左侧上传PDF简历区域 -->
       <section class="upload-section">
         <h2>Upload PDF Resume</h2>
-        <input type="file" ref="fileInput" @change="uploadResume" accept=".pdf">
-        <p v-if="uploadedResume">已上传PDF简历：{{ uploadedResume }}</p>
+        <input type="file" ref="fileInput" @change="showName" accept=".pdf">
+        <!-- <p v-if="uploadedResume">已上传PDF简历:{{ uploadedResume }}</p> -->
+        <button class="mybtn3" @click="uploadResume" size="large">Upload Resume</button>
       </section>
 
       <!-- 右侧在线填写信息区域 -->
@@ -33,7 +34,6 @@
             <label for="tel">Phone: </label>
             <input id="tel" v-model="formData.tel" required>
           </div>
-
 
           <h2 class="title3">----------------------Education Experience----------------------</h2>
           <div class="form_content">
@@ -81,23 +81,19 @@
           </div>
 
           <h2 class="title3">------------------------Personal Statement------------------------</h2>
-          <div class="form_content">
-            <label for="description">Perference: </label>
-            <select v-model="searchQuery2" placeholder="Select" @change="changeSize">
-              <option value="Sales">Sales</option>
-              <option value="Science & Technology">Science & Technology</option>
-              <option value="Accounting">Accounting</option>
-            </select>
-          </div>
 
           <div class="form_content">
-            <textarea v-model="formData.experience" cols="70" rows="10">... ...</textarea>
+            <textarea class="ps" v-model="formData.experience" cols="70" rows="10">... ...</textarea>
           </div>
 
           <!-- 其他字段 -->
 
+
           <div class="form_btn">
-            <button class="btn_submit" @click="generateResume">Submit</button>
+            <button class="myBtn1" @click="generateResume">Submit</button>
+          <!-- </div>
+          <div class="form_btn"> -->
+            <button class="myBtn2" @click="viewProfile">View My Profiles</button>
           </div>
 
           <!-- <div class="form_btn1">
@@ -141,7 +137,7 @@ export default {
     };
   },
   created(){
-    const token = localStorage.getItem('token') || 'NO_TOKEN';
+    const token = sessionStorage.getItem('token') || 'NO_TOKEN';
     axios({
       method:'get',
       url: 'http://localhost:81/ThinkPHP6/public/index.php/ResCon',
@@ -172,7 +168,7 @@ export default {
     });
   },
   methods: {
-    uploadResume() {
+    showName() {
       // 处理上传PDF文件的逻辑
       const file = this.$refs.fileInput.files[0];
       if (file) {
@@ -180,9 +176,29 @@ export default {
         // 发送文件到服务器进行处理或显示上传成功信息
       }
     },
+    uploadResume(){
+        const fileInput = this.$refs.fileInput;
+        const token = sessionStorage.getItem('token') || 'NO_TOKEN';
+        const fData = new FormData();
+        if (fileInput.files[0]) {
+          fData.append('File', fileInput.files[0]);
+        }
+        axios.post('http://localhost:81/ThinkPHP6/public/index.php/UploadResume', fData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization': `${token}`
+        }
+        }).then((response) => {
+            //console.log(response.data);
+            alart("Successfully upload.");
+        }).catch(error => {
+            console.error(error);
+        });
+      },
     generateResume() {
-      const token = localStorage.getItem('token');
-      
+      const token = sessionStorage.getItem('token') || 'NO_TOKEN';
+
       const fData = new FormData();
       fData.append('name', this.formData.name);
       fData.append('email', this.formData.email);
@@ -198,9 +214,7 @@ export default {
       fData.append('dateWorEnd', this.formData.dateWorEnd);
       fData.append('evaluation', this.formData.description);
       fData.append('experience', this.formData.experience);
-      // ...添加其他字段
 
-      // 添加文件字段
       const fileInput = this.$refs.fileInput;
       if (fileInput.files[0]) {
         fData.append('resFile', fileInput.files[0]);
@@ -215,13 +229,20 @@ export default {
           'Authorization': `${token}`
         }
       }).then(function (response) {
+        //console.log(response.data);
         alert(response.data.message);
-        const generatedPDFURL = response.data.pdfURL; // 获取生成的 PDF 文件的 URL
-        window.open(generatedPDFURL, '_blank');
+        // const generatedPDFURL = response.data.pdfURL;
+        // window.open(generatedPDFURL, '_blank');
       }).catch(error => {
         console.error(error);
       });
     },
+
+   
+  viewProfile() {
+    this.$router.push('/myProfiles');
+  },
+
   },
 };
 </script>
@@ -237,6 +258,98 @@ export default {
   width:700px;
 }
 
+.form_content{
+  /* padding-left: 204px; */
+  margin-bottom: 5px;
+  text-align: left;
+  margin-left: 50px;
+  display: flex; /* 使用 Flex 布局 */
+  justify-content: flex-end; /* 将内容右对齐 */
+  margin-bottom: 5px;
+}
+
+label {
+  margin-right: auto; /* 推动label到左侧，将input框右对齐 */
+  font-size: 22px;
+  margin-left: 5px;
+}
+
+textarea{
+  margin-right: 80px;
+  width: 300px;
+}
+
+select{
+  margin-right: 80px;
+  width: 300px;
+}
+
+.myBtn1{
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+
+
+  border-radius: 20px;
+  border: none; /* 去掉边框 */
+  padding: 0; /* 去掉内边距 */
+  top: 0;
+  width: 100px;
+  height: 56px;
+  background: #198191;
+  /* display: flex; */
+  /* justify-content: center; */
+  align-items: center;
+  cursor: pointer;
+  margin-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+.myBtn2{
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 20px;
+  border: none; /* 去掉边框 */
+  padding: 0; /* 去掉内边距 */
+  top: 0;
+  width: 150px;
+  height: 56px;
+  background: #198191;
+  /* display: flex; */
+  /* justify-content: center; */
+  align-items: center;
+  cursor: pointer;
+  margin-left: 180px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mybtn3{
+  background: #fff;
+  color: #198191;
+  border: none; /* 去掉边框 */
+  margin-left: 190px;
+}
+
+
+
+input {
+  font-size: 16px; /* 字体大小 */
+  color: #333; /* 字体颜色 */
+  border: 2px solid #ccc; /* 边框样式，可以根据需要修改颜色和宽度 */
+  padding: 5px 10px; /* 内边距，控制文本与边框的间距 */
+  border-radius: 5px; /* 圆角边框 */
+  margin-right: 80px;
+  width: 300px;
+  
+}
+
+input:focus {
+  border-color: #007BFF; /* 当输入框聚焦时的边框颜色 */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 添加阴影效果 */
+}
 
 main {
   justify-content: space-between;
@@ -250,7 +363,7 @@ main {
   padding: 20px;
 }
 .upload-section{
-  height: 200px;
+  height: 220px;
   padding-left: 180px;
   padding-top: 20px;
 }
@@ -267,7 +380,7 @@ main {
 
 .form-section form{
   background-color: #fff;
-  height: 1200px;
+  height: auto;
   border-radius: 30px;
   color: black;
   font-size: 18px;
@@ -285,11 +398,7 @@ main {
   padding: 20px;
 }
 
-.form_content{
-  /* padding-left: 204px; */
-  margin-bottom: 5px;
-  text-align: center;
-}
+
 .title3{
   padding-top: 40px;
   /* padding-left: 240px; */
@@ -300,5 +409,9 @@ main {
 }
 .form_btn1{
   padding-left: 30px;
+}
+
+.ps{
+  width: 500px;
 }
 </style>

@@ -1,5 +1,12 @@
 <template>
   <LayoutNav></LayoutNav>
+  <div  class="back">
+      <RouterLink class="entry" to="/">
+          <i class="iconfont icon-angle-left"></i>
+          <i class="iconfont icon-angle-left"></i>
+          Back to home page
+        </RouterLink>
+      </div>
     <div class="jobs"><h1>My Recent Job Ads</h1></div>
   
     <div class="content">
@@ -8,8 +15,8 @@
             <router-link :to="`/Apply/${result.id}`">
         <h3 class="title">{{ result.jobName }}</h3>
         <div class="subTitle">
-            <span class="location">{{ result.address }}</span>
-            <span class="category">{{ result.category }}</span>
+            <span class="location">{{ result.address }}</span>&nbsp;|
+            <span class="category">{{ result.category }}</span>&nbsp;|
             <span class="jobtype">{{ result.jobtype }}</span>
         </div>
         <p class="desc">{{ result.description }}</p>
@@ -34,7 +41,8 @@
         };
     },
     created() {
-        const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token') || 'NO_TOKEN';
+
       axios({
         method:'get',
         url: 'http://localhost:81/ThinkPHP6/public/index.php/showJobs',
@@ -59,6 +67,24 @@ components: { LayoutNav,LayoutFooter }
   
   </script>
   <style lang="scss" scoped>
+  .back{
+    margin-top: 15px;
+}
+.entry {
+    width: 120px;
+    margin-bottom: 38px;
+    font-size: 16px;
+    
+    margin-left: 40px;
+    margin-top: 40px;
+
+    i {
+      font-size: 14px;
+      color: $xtxColor;
+      letter-spacing: -5px;
+    }
+  }
+
  
   
   .content {
@@ -128,5 +154,7 @@ margin-right: 7%;
   }
 }
 }
+
+
   </style>
   

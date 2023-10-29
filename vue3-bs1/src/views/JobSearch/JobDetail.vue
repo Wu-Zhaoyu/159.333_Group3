@@ -17,7 +17,9 @@
         <pre class="textContent">{{ jobDetail.summary }}</pre>
       </div>
       <div class="job-detail-button job-detail-block">
+        <router-link :to="`/selectProfile/${jobDetail.id}`">
         <button class="mybtn" @click="apply" size="large">Apply</button>
+      </router-link>
       </div>
     </div>
   </template>
@@ -29,49 +31,49 @@
       return { jobDetail: {} };
     },
     created() {
-        axios({
-                method:'get',
-                url: 'http://localhost:81/ThinkPHP6/public/index.php/GetJobDe',
-                headers:{
-                "Content-Type":'application/x-www-form-urlencoded;charset=UTF-8',
-                'X-Requested-With': 'XMLHttpRequest',
-                },
-                params:{
-                    id: this.$route.params,
-                }
-            }).then(response => {
-                console.log(response.data);
-                this.jobDetail = response.data;
-            }).catch(error => {
-                console.error(error);
-            });
-    
-    },
-    methods: {
-    apply() {
-      const token = localStorage.getItem('token');
       axios({
-        method:'post',
-        url: 'http://localhost:81/ThinkPHP6/public/index.php/Apply',
+        method:'get',
+        url: 'http://localhost:81/ThinkPHP6/public/index.php/GetJobDe',
         headers:{
-          "Content-Type":'application/x-www-form-urlencoded;charset=UTF-8',
-          'X-Requested-With': 'XMLHttpRequest',
-          'Authorization': `${token}`
+        "Content-Type":'application/x-www-form-urlencoded;charset=UTF-8',
+        'X-Requested-With': 'XMLHttpRequest',
         },
-        data:{
-          jobid:this.$route.params.id,
+        params:{
+            id: this.$route.params,
         }
-      }).then((response) =>  {
-        if(response.data.code === 10){
-          alert(response.data.message);
-        }else{
-          alert(response.data.message);
-        }
+      }).then(response => {
+          this.jobDetail = response.data;
       }).catch(error => {
-        console.error(error);
+          console.error(error);
       });
     },
-  }
+    methods: {
+      apply() {
+        // const profileid = null;
+        // axios({
+        //   method:'post',
+        //   url: 'http://localhost:81/ThinkPHP6/public/index.php/Apply',
+        //   headers:{
+        //     "Content-Type":'application/x-www-form-urlencoded;charset=UTF-8',
+        //     'X-Requested-With': 'XMLHttpRequest',
+        //     'Authorization': `${token}`
+        //   },
+        //   data:{
+        //     jobid:this.$route.params.id,
+        //     profileid:profileid
+        //   }
+        // }).then((response) =>  {
+        //   if(response.data.code === 10){
+        //     alert(response.data.message);
+        //   }else{
+        //     alert(response.data.message);
+        //   }
+        // }).catch(error => {
+        //   console.error(error);
+        // });
+        this.$router.push('/selectProfile/' + jobDetail.id);
+      },
+    }
   };
   </script>
 

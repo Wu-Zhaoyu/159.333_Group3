@@ -48,10 +48,6 @@
 </template>
 <script>
 import axios from 'axios'
-import { computed, getCurrentInstance, onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import { getOffsetTop } from "../../helper/utilities.js";
-import CheckboxTransfer from "../../components/Checkbox-Transfer.vue";
 
 
 export default {
@@ -66,7 +62,7 @@ export default {
     };
   },
   created(){
-    const token = localStorage.getItem('token') || 'NO_TOKEN';
+    const token = sessionStorage.getItem('token') || 'NO_TOKEN';
     axios({
       method:'get',
       url: 'http://localhost:81/ThinkPHP6/public/index.php/RecomJob',
@@ -87,7 +83,7 @@ export default {
 
   methods: {
     search() {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token') || 'NO_TOKEN';
       axios({
         method:'get',
         url: 'http://localhost:81/ThinkPHP6/public/index.php/Search',
@@ -103,6 +99,7 @@ export default {
         }
       }).then((response) =>  {
         if(response.data.code === 101){
+          this.searchResults = response.data.joblist;
           alert(response.data.message);
         }else{
           this.searchResults = response.data.joblist;
@@ -257,7 +254,7 @@ export default {
 }
 
 .input-search1 {
-  margin-left: 200px;
+  margin-left: 250px;
 }
 
 .input-search4 {
@@ -265,7 +262,8 @@ export default {
   min-width: 100px;
   background: #198191;
   border: none;
-  margin-right: 250px;
+  // margin-right: 250px;
+  margin-right: 200px;
 
 }
 
