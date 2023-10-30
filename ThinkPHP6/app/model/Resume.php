@@ -38,9 +38,7 @@ class Resume extends Model{
         Resume::where('userid', $user_id)->update($Resume);
     }
 
-    public function UploadFile($user_id, $Filename){
-        Resume::where('userid', $user_id)->update($Filename);
-    }
+
 
     public function ResContext($user_id){
         return Resume::where('userid', $user_id) -> find();
