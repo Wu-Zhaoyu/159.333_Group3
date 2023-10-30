@@ -25,7 +25,6 @@ class Resume extends Model{
         'dateWorEnd' => 'string',
         'evaluation' => 'string',
         'experience' => 'string',
-        'resFile' => 'string',
         'userid' => 'int'
     ];
 
@@ -56,13 +55,11 @@ class Resume extends Model{
         $pdf->SetFont('times', '', 20);
         $pdf->Cell(0, 15, 'RESUME', 0, 1, 'C');
         $pdf->SetFillColor(200, 200, 200);
-        //$pdf->SetAutoPageBreak(TRUE, '15');//分页
         $pdf->SetFont('times', '', 14);
         $pdf->Cell(0, 10, '----- PERSONAL INFORMATIOAN -----', 0, 1, 'C', 1);
-        $pdf->MultiCell(60, 20, 'Name: '.$context['name'], 1, 'L', 0, 0);
-        $pdf->MultiCell(100, 20, 'Phone: '.$context['phone'], 1,'L', 0, 1);
-        $pdf->MultiCell(30, 40, 'image', 1, 'L', 0, 1, 170, 35);
-        $pdf->MultiCell(160, 20, 'E-mail: '.$context['email'], 1, 'L', 0, 1, 10, 55);
+        $pdf->MultiCell(70, 15, 'Name: '.$context['name'], 1, 'L', 0, 0);
+        $pdf->MultiCell(120, 15, 'Phone: '.$context['phone'], 1,'L', 0, 1);
+        $pdf->MultiCell(190, 15, 'E-mail: '.$context['email'], 1, 'L', 0, 1);
         $pdf->Cell(0, 10, '----- EDUCATION EXPERIENCE -----', 0, 1, 'C', 1);
         $pdf->MultiCell(80, 15, 'School: '.$context['school'], 1, 'L', 0, 0);
         $pdf->MultiCell(110, 15, 'Major: '.$context['major'], 1, 'L', 0, 1);

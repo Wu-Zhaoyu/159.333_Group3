@@ -33,7 +33,7 @@ class Apply extends Model{
         return Apply::where("jobid", $job_id) -> Select() ->toArray();
     }
 
-    public function showApp($user_id){
+    public function showApp($user_id){  //obtain an employee all applications
         return Apply::where('userid', $user_id) -> Select() ->toArray();
     }
 

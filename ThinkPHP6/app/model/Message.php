@@ -21,12 +21,12 @@ class Message extends Model{
         'send_time' => 'int',
     ];
 
-    public function addMessage($message){
+    public function addMessage($message){   //add new message
         $message['ifLook'] = false;
         Message::create($message);
     }
 
-    public function showMessage($sender_id, $receiver_id){
+    public function showMessage($sender_id, $receiver_id){  //show all messages
         $senderMessages = Message::where('sender_id', $sender_id)
                         ->where('receiver_id', $receiver_id)
                         ->Select()

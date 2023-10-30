@@ -169,11 +169,9 @@ export default {
   },
   methods: {
     showName() {
-      // 处理上传PDF文件的逻辑
       const file = this.$refs.fileInput.files[0];
       if (file) {
         this.uploadedResume = file.name;
-        // 发送文件到服务器进行处理或显示上传成功信息
       }
     },
     uploadResume(){
