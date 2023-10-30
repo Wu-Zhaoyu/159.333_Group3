@@ -31,7 +31,7 @@ class JobApply extends BaseController{
         }
     }
 
-    public function EmpeeApply(){
+    public function EmpeeApply(){   //Employee application tracking
         $token = Request::param();
         $token = $token['token'];
         $User = new UserModel;

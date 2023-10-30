@@ -53,7 +53,7 @@ Route::get('ShowProfile', 'Employee.AddResume/showProfile')->allowCrossDomain();
 
 Route::get('DelProfile', 'Employee.AddResume/delProfile')->allowCrossDomain();//删除简历
 
-Route::post('UploadResume', 'Employee.AddResume/uploadResume')->allowCrossDomain();//
+Route::post('UploadResume', 'Employee.AddResume/uploadResume')->allowCrossDomain();
 
 Route::get('ShowCompany', 'Employer.AddJob/showCompany')->allowCrossDomain();
 

@@ -18,13 +18,6 @@ class AddResume extends BaseController{
         $user_id = $User -> findID($token);
         $Res = new ResumeModel;
         $Res -> AddResume($user_id, $Resume);
-        // $file = Request::file('resFile');
-        // if ($file){
-        // $Filename = Filesystem::disk('public')->putFile('resume', $file);
-        // $baseUrl = 'http://localhost:81/ThinkPHP6/public/storage/';
-        // $resFile = ['resFile' => $baseUrl.$Filename];
-        // $Res -> UploadFile($user_id, $resFile);
-        // }
         $Profile = new ProfileModel;
         $pdfname = $Res -> pdf($user_id);
         $baseUrl = 'http://localhost:81/ThinkPHP6/public/storage/pdf/';

@@ -8,13 +8,13 @@ use think\facade\Request;
 
 class Chat extends BaseController{
 
-    public function addMessage(){
+    public function addMessage(){   //add new message
         $message = Request::post();
         $mes = new MessageModel;
         $mes -> addMessage($message);
     }
 
-    public function showMessage(){
+    public function showMessage(){  //show all messages
         $sender_id = Request::param(['sender_id']);
         $receiver_id = Request::param(['receiver_id']);
         $message = new MessageModel;

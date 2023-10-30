@@ -137,7 +137,7 @@
                         <label>Description: </label>
                     </div>
                     <div class="form_content">
-                        <textarea cols="30" rows="5" v-model="description">... ...</textarea>
+                        <textarea cols="30" rows="5" v-model="description"></textarea>
                     </div>
 
                     <h2 class="title3">---------------------------------Candidate search results---------------------------------</h2>
@@ -148,7 +148,7 @@
                         <label>Write a compelling statement about your role to entice more candidates.</label>
                     </div>
                     <div class="form_content">
-                        <textarea cols="70" rows="10">... ...</textarea>
+                        <textarea cols="70" rows="10" v-model="summary"></textarea>
                     </div>
 
                     <!-- 其他字段 -->
@@ -171,7 +171,6 @@
                         </h3>
                         <p class="answer" v-if="faq.showAnswer">{{ faq.answer }}</p>
                     </div>
-
 
                     <div class="form_content8">
                         <label>Can't find what you're looking for? Reach out on 0508 733 569, Monday to
@@ -197,13 +196,14 @@ export default {
             Cphone:"",
             Cemail:"",
             selectedCategory:"",
-            jobTitle: "",
-            loc: "",
+            jobTitle:"",
+            loc:"",
             from: "",
             to: "",
             worktype: '', // 用来存储选中的单选框的值
             paytype: '', // 用来存储选中的单选框的值
             description:"",
+            summary:"",
 
             faqs: [
                 {
@@ -293,7 +293,6 @@ export default {
 
         addCompany(){
             const token = sessionStorage.getItem('token') || 'NO_TOKEN';
-
             axios({
                 method:'post',
                 url: 'http://localhost:81/ThinkPHP6/public/index.php/AddCompany',
@@ -318,7 +317,6 @@ export default {
 
         doPost(){
             const token = sessionStorage.getItem('token') || 'NO_TOKEN';
-
             axios({
                 method:'post',
                 url: 'http://localhost:81/ThinkPHP6/public/index.php/JobAdd',
@@ -336,9 +334,18 @@ export default {
                     maxmoney:this.from,
                     minmoney:this.to,
                     description:this.description,
-                    summary:this.jobTitle,
+                    summary:this.summary,
                 }
-            }).then(function (response) {
+            }).then((response) => {
+                this.jobTitle = "";
+                this.loc = "";
+                this.selectedCategory = "";
+                this.worktype = "";
+                this.paytype = "";
+                this.from = "";
+                this.to = "";
+                this.description = "";
+                this.summary = "";
                alert(response.data.message);
             }).catch(error => {
                 console.error(error);
